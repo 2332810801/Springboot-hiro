@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<h1>首页</h1>
+<div th:if="${session.loginuser==null}"><!--登录后隐藏-->
+    <a th:href="@{/toLogin}">登录</a>
+</div>
+<div th:if="${session.loginuser!=null}"><!--登录后显示-->
+    <a th:href="@{/logout}">注销</a>
+</div>
+<hr>
+<div shiro:hasPermission="user:add" th:if="${session.loginuser!=null}" >
+    <a th:href="@{/add}">add</a>
+</div>|
+<div shiro:hasPermission="user:delete" th:if="${session.loginuser!=null}">
+    <a th:href="@{/del}">delete</a>
+</div>
+</body>
+</html>
