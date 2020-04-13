@@ -1,0 +1,24 @@
+{
+  "name" : "Info",
+  "comment" : null,
+  "fullColumn" : [ {
+    "name" : "username",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "password",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  } ],
+  "pkColumn" : null,
+  "otherColumn" : null,
+  "savePackageName" : "com.dj",
+  "savePath" : "./src/main/java/com/dj",
+  "saveModelName" : "springbootshiro"
+}

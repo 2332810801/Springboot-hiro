@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.dao.InfoDao">
+
+    <!--info的映射结果集-->
+    <resultMap type="com.dj.entity.Info" id="InfoMap">
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!--全部字段-->
+    <sql id="allColumn"> username, password </sql>
+    
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="username != null and username != ''">
+                username,
+        </if>
+        <if test="password != null and password != ''">
+                password,
+        </if>
+    </sql>
+    
+    <!--添加语句的值列表-->
+        <sql id="insertValue">
+        <if test="username != null and username != ''">
+                #{username},
+        </if>
+        <if test="password != null and password != ''">
+                #{password},
+        </if>
+    </sql>
+    
+    <!--通用对Info各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="username != null and username != ''">
+                username = #{username},
+        </if>
+        <if test="password != null and password != ''">
+                password = #{password},
+        </if>
+    </sql>
+    
+    <!--新增info:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+   
+    <!--删除info:通过主键-->
+    <delete id="deleteById">
+        delete from info
+        <where>
+             = #{}
+        </where>
+    </delete>
+    
+    <!--查询单个info-->
+    <select id="queryById" resultMap="InfoMap">
+        select
+        <include refid="allColumn"></include>
+        from info
+        <where>
+             = #{}
+        </where>
+    </select>
+
+    <!--查询所有info-->
+    <select id="queryAllByLimit" resultMap="InfoMap">
+        select
+        <include refid="allColumn"></include>
+        from info
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="InfoMap">
+        select
+          <include refid="allColumn"></include>
+        from info
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="commonsValue"></include>
+        </trim>
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update info
+        <set>
+            <include refid="commonsValue"></include>
+        </set>
+        <where>
+             = #{}
+        </where>
+    </update>
+
+</mapper>
